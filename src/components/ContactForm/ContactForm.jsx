@@ -9,6 +9,7 @@ const ContactForm = ({ contacts, onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  //  switch??
   // const handleChange = e => {
   //   const { name, value } = e.currentTarget;
   //   if (name === 'name') {
