@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 
 import Box from '../Box/Box';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { addContactAction } from 'redux/contacts/contacts.slice';
+// import { addContactAction } from 'redux/contacts/contacts.slice';
+import { getContactState } from 'redux/contacts/contacts.selectors';
+import { addContact } from 'redux/operations';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(getContactState);
   const dispatch = useDispatch();
 
   const onSubmitForm = e => {
     e.preventDefault();
     if (contacts.every(contact => contact.name !== name)) {
       const data = { name, number };
-      data.id = nanoid();
+      // data.id = nanoid();
       console.log(data);
-      dispatch(addContactAction(data));
+      // dispatch(addContactAction(data));
+      dispatch(addContact(data));
+
       reset();
     } else {
       toast.warn(`${name} is already in your contacts`);
