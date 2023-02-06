@@ -8,26 +8,28 @@ const contactSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitState,
   reducers: {
-    filterContactAction(state, action) {
-      state.filter = action.payload;
-    },
     addContactAction(state, action) {
+      // console.log(state);
+
       state.contacts.push(action.payload);
     },
     delContactAction(state, action) {
+      // console.log(state);
+
       state.contacts = state.contacts.filter(
         contact => contact.id !== action.payload
       );
     },
   },
 });
-export const { filterContactAction, addContactAction, delContactAction } =
-  contactSlice.actions;
 
+export const { addContactAction, delContactAction } = contactSlice.actions;
+
+// export const contactReducer = contactSlice.reducer;
 const persistConfig = {
   key: 'storeContacts',
   storage,
-  whitelist: ['contacts'],
+  // whitelist: ["contacts"],
 };
 
 export const contactReducer = persistReducer(

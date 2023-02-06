@@ -1,7 +1,21 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { filterContactAction } from 'redux/filter/filter.slice';
+
 // import Box from '../Box/Box';
 import { PropTypes } from 'prop-types';
 
-const Filter = ({ filter, onFilter }) => {
+const Filter = () => {
+  const filter = useSelector(state => state.filter.filter);
+  const dispatch = useDispatch();
+
+  // console.log(filter);
+
+  const onFilterForm = e => {
+    dispatch(filterContactAction(e.currentTarget.value));
+  };
+
+  //
+  //
   return (
     <div>
       <label>
@@ -13,7 +27,7 @@ const Filter = ({ filter, onFilter }) => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           value={filter}
-          onChange={onFilter}
+          onChange={onFilterForm}
         />
       </label>
     </div>
@@ -23,6 +37,5 @@ const Filter = ({ filter, onFilter }) => {
 export default Filter;
 
 Filter.propTypes = {
-  onFilter: PropTypes.func.isRequired,
   filter: PropTypes.string,
 };

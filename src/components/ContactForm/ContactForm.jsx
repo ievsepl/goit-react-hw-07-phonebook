@@ -1,15 +1,43 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { nanoid } from 'nanoid';
+
+import Box from '../Box/Box';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Box from '../Box/Box';
-import { PropTypes } from 'prop-types';
+import { addContactAction } from 'redux/contacts/contacts.slice';
 
-const ContactForm = ({ contacts, onSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(state => state.contacts.contacts);
+  const dispatch = useDispatch();
 
-  //  switch??
+  const onSubmitForm = e => {
+    e.preventDefault();
+    if (contacts.every(contact => contact.name !== name)) {
+      const data = { name, number };
+      data.id = nanoid();
+      console.log(data);
+      dispatch(addContactAction(data));
+      reset();
+    } else {
+      toast.warn(`${name} is already in your contacts`);
+    }
+  };
+  // const saveContact = e => {
+  //   e.preventDefault();
+  //   if (contacts.every(contact => contact.name !== name)) {
+  //     contacts.id = nanoid();
+  //     dispatch(addContactAction({ name, number }));
+  //     reset();
+  //   } else {
+  //     // alert(`${name} is already in your contacts`);
+  //     toast.warn(`${name} is already in your contacts`);
+  //   }
+  // };
   // const handleChange = e => {
   //   const { name, value } = e.currentTarget;
   //   if (name === 'name') {
@@ -30,17 +58,6 @@ const ContactForm = ({ contacts, onSubmit }) => {
     setNumber(value);
   };
 
-  const saveContact = e => {
-    e.preventDefault();
-    if (contacts.every(contact => contact.name !== name)) {
-      onSubmit({ name, number });
-      reset();
-    } else {
-      // alert(`${name} is already in your contacts`);
-      toast.warn(`${name} is already in your contacts`);
-    }
-  };
-
   const reset = () => {
     setName('');
     setNumber('');
@@ -53,7 +70,7 @@ const ContactForm = ({ contacts, onSubmit }) => {
       flexDirection="column"
       alignItems="end"
       as="form"
-      onSubmit={saveContact}
+      onSubmit={onSubmitForm}
     >
       <label>
         Name :
@@ -89,12 +106,12 @@ const ContactForm = ({ contacts, onSubmit }) => {
 export default ContactForm;
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  // onSubmit: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     }).isRequired
-  ).isRequired,
+  ),
 };
