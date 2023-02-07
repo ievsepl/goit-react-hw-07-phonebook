@@ -21,7 +21,7 @@ const ContactItem = () => {
   const filter = useSelector(selectFilterState);
   const dispatch = useDispatch();
 
-  // console.log(isLoading, contacts);
+  // console.log(isLoading);
 
   const filteredNamesMethod = useMemo(() => {
     return contacts.filter(contact =>
