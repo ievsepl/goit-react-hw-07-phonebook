@@ -2,7 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { filterContactAction } from 'redux/filter/filter.slice';
 
 // import Box from '../Box/Box';
+
 import { PropTypes } from 'prop-types';
+import { FilterNameStyle } from './Filter.styled';
 
 const Filter = () => {
   const filter = useSelector(state => state.filter.filter);
@@ -19,7 +21,8 @@ const Filter = () => {
   return (
     <div>
       <label>
-        Find contacts by name:
+        <FilterNameStyle> Find contacts by name:</FilterNameStyle>
+
         <input
           type="text"
           name="filter"

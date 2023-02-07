@@ -1,25 +1,27 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useMemo } from 'react';
 import { PropTypes } from 'prop-types';
+import { ItemStyle, ContactStyle } from './ContactItem.styled';
 
 // import { delContactAction } from 'redux/contacts/contacts.slice';
 
 import Box from '../Box/Box';
 import {
-  getContactState,
-  getIsLoadingState,
-  getErrorState,
+  selectContactState,
+  selectIsLoadingState,
+  selectErrorState,
 } from 'redux/contacts/contacts.selectors';
-import { getFilterState } from 'redux/filter/filter.selectors';
+import { selectFilterState } from 'redux/filter/filter.selectors';
 import { delContact, fetchContacts } from 'redux/operations';
 
 const ContactItem = () => {
-  const contacts = useSelector(getContactState);
-  const isLoading = useSelector(getIsLoadingState);
-  const error = useSelector(getErrorState);
-  const filter = useSelector(getFilterState);
+  const contacts = useSelector(selectContactState);
+  const isLoading = useSelector(selectIsLoadingState);
+  const error = useSelector(selectErrorState);
+  const filter = useSelector(selectFilterState);
   const dispatch = useDispatch();
-  console.log(isLoading, contacts);
+
+  // console.log(isLoading, contacts);
 
   const filteredNamesMethod = useMemo(() => {
     return contacts.filter(contact =>
@@ -55,12 +57,18 @@ const ContactItem = () => {
 
       {filteredNames.map(({ id, name, number }) => {
         return (
-          <Box border="1px solid red" as="li" key={id}>
-            {name} - {number}
+          <ItemStyle key={id}>
+            <ContactStyle>
+              <Box marginRight="10px" as="span">
+                {name}
+              </Box>
+              <span>{number}</span>
+            </ContactStyle>
+
             <button type="button" onClick={() => deleteContact(id)}>
               Delete
             </button>
-          </Box>
+          </ItemStyle>
         );
       })}
     </>
@@ -69,7 +77,6 @@ const ContactItem = () => {
 export default ContactItem;
 
 ContactItem.propTypes = {
-  // deleteContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

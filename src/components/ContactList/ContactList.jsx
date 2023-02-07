@@ -1,13 +1,13 @@
 // import { PropTypes } from "prop-types";
-
+import { ListStyle } from './ContactList.styled';
 // import Box from '../Box/Box';
 import ContactItem from '../ContactItem/ContactItem';
 
 const ContactList = () => {
   return (
-    <ul>
+    <ListStyle>
       <ContactItem />
-    </ul>
+    </ListStyle>
   );
 };
 

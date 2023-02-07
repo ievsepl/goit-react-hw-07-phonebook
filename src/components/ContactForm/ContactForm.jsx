@@ -4,26 +4,31 @@ import { PropTypes } from 'prop-types';
 // import { nanoid } from 'nanoid';
 
 import Box from '../Box/Box';
+import { LabelNameStyle } from './ContactForm.styled';
+import { LabelStyle } from './ContactForm.styled';
+import { BtnAddContactStyle } from './ContactForm.styled';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import { addContactAction } from 'redux/contacts/contacts.slice';
-import { getContactState } from 'redux/contacts/contacts.selectors';
+import { selectContactState } from 'redux/contacts/contacts.selectors';
 import { addContact } from 'redux/operations';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(getContactState);
+  const contacts = useSelector(selectContactState);
   const dispatch = useDispatch();
 
   const onSubmitForm = e => {
     e.preventDefault();
     if (contacts.every(contact => contact.name !== name)) {
       const data = { name, number };
+
       // data.id = nanoid();
-      console.log(data);
+      // console.log(data);
       // dispatch(addContactAction(data));
+
       dispatch(addContact(data));
 
       reset();
@@ -31,17 +36,7 @@ const ContactForm = () => {
       toast.warn(`${name} is already in your contacts`);
     }
   };
-  // const saveContact = e => {
-  //   e.preventDefault();
-  //   if (contacts.every(contact => contact.name !== name)) {
-  //     contacts.id = nanoid();
-  //     dispatch(addContactAction({ name, number }));
-  //     reset();
-  //   } else {
-  //     // alert(`${name} is already in your contacts`);
-  //     toast.warn(`${name} is already in your contacts`);
-  //   }
-  // };
+  //
   // const handleChange = e => {
   //   const { name, value } = e.currentTarget;
   //   if (name === 'name') {
@@ -76,8 +71,9 @@ const ContactForm = () => {
       as="form"
       onSubmit={onSubmitForm}
     >
-      <label>
-        Name :
+      <LabelStyle>
+        <LabelNameStyle> Name :</LabelNameStyle>
+
         <input
           type="text"
           name="name"
@@ -87,9 +83,10 @@ const ContactForm = () => {
           value={name}
           onChange={onChangeName}
         />
-      </label>
-      <label>
-        Number :
+      </LabelStyle>
+      <LabelStyle>
+        <LabelNameStyle>Number :</LabelNameStyle>
+
         <input
           type="tel"
           name="number"
@@ -99,9 +96,9 @@ const ContactForm = () => {
           value={number}
           onChange={onChangeNumber}
         />
-      </label>
+      </LabelStyle>
 
-      <button type="submit">Add contact</button>
+      <BtnAddContactStyle type="submit">Add contact</BtnAddContactStyle>
       <ToastContainer autoClose={2000} />
     </Box>
   );
@@ -110,7 +107,6 @@ const ContactForm = () => {
 export default ContactForm;
 
 ContactForm.propTypes = {
-  // onSubmit: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
