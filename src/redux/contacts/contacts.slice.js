@@ -10,7 +10,8 @@ const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
-console.log([fetchContacts.pending]);
+// console.log([fetchContacts.pending]);
+
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitState,
@@ -27,43 +28,71 @@ const contactSlice = createSlice({
     //   );
     // },
   },
-  extraReducers: {
-    //===========================================
-    // FETCH CONTACT
-    [fetchContacts.pending]: handlePending,
-    [fetchContacts.rejected]: handleRejected,
+  // extraReducers: {
+  //   //===========================================
+  //   // FETCH CONTACT
+  //   [fetchContacts.pending]: handlePending,
+  //   [fetchContacts.rejected]: handleRejected,
 
-    [fetchContacts.fulfilled](state, action) {
-      state.contacts.isLoading = false;
-      state.contacts.error = null;
-      state.contacts.items = action.payload;
-    },
-    //===========================================
-    // ADD CONTACT
-    [addContact.pending]: handlePending,
-    [addContact.rejected]: handleRejected,
+  //   [fetchContacts.fulfilled](state, action) {
+  //     state.contacts.isLoading = false;
+  //     state.contacts.error = null;
+  //     state.contacts.items = action.payload;
+  //   },
+  //   //===========================================
+  //   // ADD CONTACT
+  //   [addContact.pending]: handlePending,
+  //   [addContact.rejected]: handleRejected,
 
-    [addContact.fulfilled](state, action) {
-      state.contacts.isLoading = false;
-      state.contacts.error = null;
-      state.contacts.items.push(action.payload);
-    },
-    //============================================
-    // DELETE CONTACT
-    [delContact.pending]: handlePending,
-    [delContact.rejected]: handleRejected,
+  //   [addContact.fulfilled](state, action) {
+  //     state.contacts.isLoading = false;
+  //     state.contacts.error = null;
+  //     state.contacts.items.push(action.payload);
+  //   },
+  //   //============================================
+  //   // DELETE CONTACT
+  //   [delContact.pending]: handlePending,
+  //   [delContact.rejected]: handleRejected,
 
-    [delContact.fulfilled](state, action) {
-      state.contacts.isLoading = false;
-      state.contacts.error = null;
-      state.contacts.items = state.contacts.items.filter(
-        contact => contact.id !== action.payload.id
-      );
-      // const index = state.contacts.items.findIndex(
-      //   contact => contact.id === action.payload.id
-      // );
-      // state.contacts.items.splice(index, 1);
-    },
+  //   [delContact.fulfilled](state, action) {
+  //     state.contacts.isLoading = false;
+  //     state.contacts.error = null;
+  //     state.contacts.items = state.contacts.items.filter(
+  //       contact => contact.id !== action.payload.id
+  //     );
+  //     // const index = state.contacts.items.findIndex(
+  //     //   contact => contact.id === action.payload.id
+  //     // );
+  //     // state.contacts.items.splice(index, 1);
+  //   },
+  // },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.pending, handlePending)
+      .addCase(fetchContacts.rejected, handleRejected)
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = null;
+        state.contacts.items = action.payload;
+      });
+    builder
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.rejected, handleRejected)
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = null;
+        state.contacts.items.push(action.payload);
+      });
+    builder
+      .addCase(delContact.pending, handlePending)
+      .addCase(delContact.rejected, handleRejected)
+      .addCase(delContact.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = null;
+        state.contacts.items = state.contacts.items.filter(
+          contact => contact.id !== action.payload.id
+        );
+      });
   },
 });
 
