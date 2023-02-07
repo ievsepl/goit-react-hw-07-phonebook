@@ -3,7 +3,7 @@ import { filterContactAction } from 'redux/filter/filter.slice';
 
 // import Box from '../Box/Box';
 
-import { PropTypes } from 'prop-types';
+// import { PropTypes } from 'prop-types';
 import { FilterNameStyle } from './Filter.styled';
 
 const Filter = () => {
@@ -31,6 +31,7 @@ const Filter = () => {
           required
           value={filter}
           onChange={onFilterForm}
+          placeholder="Write search name"
         />
       </label>
     </div>
@@ -39,6 +40,6 @@ const Filter = () => {
 
 export default Filter;
 
-Filter.propTypes = {
-  filter: PropTypes.string,
-};
+// Filter.propTypes = {
+//   filter: PropTypes.string,
+// };

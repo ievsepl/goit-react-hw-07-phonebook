@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { PropTypes } from 'prop-types';
+// import { PropTypes } from 'prop-types';
 // import { nanoid } from 'nanoid';
 
 import Box from '../Box/Box';
@@ -82,6 +82,7 @@ const ContactForm = () => {
           required
           value={name}
           onChange={onChangeName}
+          placeholder="Jane Jonson"
         />
       </LabelStyle>
       <LabelStyle>
@@ -95,6 +96,7 @@ const ContactForm = () => {
           required
           value={number}
           onChange={onChangeNumber}
+          placeholder="0987952255"
         />
       </LabelStyle>
 
@@ -106,12 +108,12 @@ const ContactForm = () => {
 
 export default ContactForm;
 
-ContactForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ),
-};
+// ContactForm.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     }).isRequired
+//   ),
+// };

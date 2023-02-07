@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useMemo } from 'react';
-import { PropTypes } from 'prop-types';
+// import { PropTypes } from 'prop-types';
 import { ItemStyle, ContactStyle } from './ContactItem.styled';
 
 // import { delContactAction } from 'redux/contacts/contacts.slice';
@@ -76,12 +76,12 @@ const ContactItem = () => {
 };
 export default ContactItem;
 
-ContactItem.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ),
-};
+// ContactItem.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     }).isRequired
+//   ),
+// };
